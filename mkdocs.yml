@@ -1,0 +1,51 @@
+site_name: Pawel's Homelab
+site_description: A Raspberry Pi 5 homelab - media automation, monitoring, and self-hosted infrastructure
+repo_url: https://github.com/Pawel-Gorzerk/homelab-docs
+repo_name: Pawel-Gorzerk/homelab-docs
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.instant
+    - content.code.copy
+    - search.suggest
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Tech stack reference: stack-overview.md
+  - Setup guides:
+      - Networking & DNS: setup/networking.md
+      - Reverse proxy & HTTPS: setup/reverse-proxy.md
+      - Media automation: setup/media-automation.md
+      - Monitoring & dashboard: setup/monitoring.md
+      - Security: setup/security.md
+      - Remote access: setup/remote-access.md
+      - Backups: setup/backups.md
+  - Troubleshooting log: troubleshooting.md
