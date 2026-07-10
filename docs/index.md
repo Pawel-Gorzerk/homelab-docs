@@ -1,34 +1,37 @@
-# Pawel's Homelab
+# Infrastructure Engineering Portfolio
 
-A fully self-hosted infrastructure stack running on a single **Raspberry Pi 5 (8GB)**, covering DNS, reverse proxying with real HTTPS, automated media management, monitoring, intrusion prevention, remote access, and encrypted off-site backups.
+This site documents a self-hosted infrastructure environment built and operated on a single Raspberry Pi 5, used as a continuous learning platform for the kind of work involved in infrastructure, cloud, and support engineering roles.
 
-Built incrementally, with every design decision, misstep, and fix documented as it happened — see the [Troubleshooting Log](troubleshooting.md) for the honest version of how this actually got built.
+It is not a media server project. Media automation is one workload running on this infrastructure - a useful one, because it generates real operational problems to solve, but it is not the point. The point is everything underneath it: DNS design, reverse proxy and certificate management, container networking, monitoring, security hardening, backup and disaster recovery, and the troubleshooting process behind each of them.
+
+!!! note "How to read this site"
+    Every page here reflects something actually built and operated, not a tutorial being followed. Where something broke, it's documented as it happened in [Lessons Learned](lessons-learned.md) - the debugging process is usually more informative than the final working config.
+
+## What this demonstrates
+
+- **I design infrastructure** - network topology, service segmentation, and certificate strategy were deliberate decisions with tradeoffs, not defaults accepted as-is.
+- **I operate infrastructure** - this environment runs continuously and gets maintained, not just set up once and left alone.
+- **I troubleshoot failures methodically** - see [Lessons Learned](lessons-learned.md) for real incidents worked through from symptom to root cause.
+- **I monitor and act on what I monitor** - metrics and alerting exist because they get looked at and acted on, not because a dashboard looks good.
+- **I automate repetitive work** - both the workload automation (media pipeline) and the operational automation (backups, notifications).
+- **I validate what I build** - backups are tested by restoring them, not just assumed to work.
+- **I document as I go** - this entire site is that documentation.
 
 ## At a glance
 
 | | |
 |---|---|
-| **Hardware** | Raspberry Pi 5, 8GB RAM, SSD-based storage |
-| **Containers running** | 20+ |
-| **Uptime approach** | Docker Compose stacks via Portainer, `restart: unless-stopped` |
-| **Network** | Custom bridge network (`proxy_net`) for container-name DNS resolution |
-| **Remote access** | Tailscale subnet router - zero exposed ports |
-| **Backups** | Restic + rclone to Google Drive, SQLite-consistent, encrypted |
+| **Host** | Raspberry Pi 5 (8GB RAM), Raspberry Pi OS (Debian 12 "bookworm"), SSD-backed storage |
+| **Orchestration** | Docker + Docker Compose, managed via Portainer |
+| **Services running** | 20+ containers across networking, monitoring, security, automation, and workload layers |
+| **Network design** | Custom Docker bridge network for container-name DNS resolution; internal-only hostnames via Pi-hole |
+| **Remote access** | Tailscale subnet router - zero ports forwarded on the router |
+| **Backup strategy** | Restic + rclone, SQLite-consistent snapshots, encrypted, deduplicated, off-site |
 
-## What this stack does
+## Where to start
 
-- **Blocks ads and handles local DNS** for the whole network via Pi-hole
-- **Terminates real, trusted HTTPS** for internal services via Nginx Proxy Manager + Let's Encrypt DNS challenge (no ports exposed to the internet)
-- **Automatically fetches and organizes media** on request: Jellyseerr → Sonarr/Radarr → Prowlarr → qBittorrent → Bazarr for subtitles → Jellyfin
-- **Monitors itself**: Prometheus + Grafana for metrics, Uptime Kuma for availability, cAdvisor + node-exporter for container/host stats
-- **Defends itself**: CrowdSec parsing logs and enforcing bans via a firewall bouncer
-- **Notifies me proactively**: ntfy push notifications for downtimes, completed downloads, and security events
-- **Is reachable from anywhere** via Tailscale, without a single forwarded port on the router
-- **Backs itself up nightly**: SQLite-consistent snapshots, encrypted, deduplicated, shipped off-site
-
-## Explore
-
-- [**Architecture**](architecture.md) — how everything connects, with diagrams
-- [**Setup Guides**](setup/networking.md) — step-by-step for each subsystem
-- [**Troubleshooting Log**](troubleshooting.md) — real incidents encountered while building this, and how they were actually diagnosed and fixed
-- [**Tech Stack Reference**](stack-overview.md) — every container, what it does, and why it was chosen
+- [**Architecture**](architecture.md) - system design and how the pieces connect
+- [**Infrastructure**](infrastructure.md) - the core services the rest of the stack depends on
+- [**Backup & Disaster Recovery**](backup.md) - the section I'd point a hiring manager to first
+- [**Lessons Learned**](lessons-learned.md) - real incidents, root cause analysis, and what changed as a result
+- [**About**](about.md) - background and why this project exists

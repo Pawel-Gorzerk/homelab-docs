@@ -1,5 +1,5 @@
-site_name: Pawel's Homelab
-site_description: A Raspberry Pi 5 homelab - media automation, monitoring, and self-hosted infrastructure
+site_name: Pawel Gorzerk — Infrastructure Engineering Portfolio
+site_description: Self-hosted infrastructure lab used to build and demonstrate operational engineering skills - Linux, Docker, networking, monitoring, security, and disaster recovery.
 repo_url: https://github.com/Pawel-Gorzerk/homelab-docs
 repo_name: Pawel-Gorzerk/homelab-docs
 
@@ -22,6 +22,7 @@ theme:
     - navigation.tabs
     - navigation.top
     - navigation.instant
+    - navigation.instant.progress
     - content.code.copy
     - search.suggest
   icon:
@@ -30,22 +31,28 @@ theme:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight
   - tables
+  - attr_list
   - toc:
       permalink: true
 
 nav:
   - Home: index.md
+  - About: about.md
   - Architecture: architecture.md
-  - Tech stack reference: stack-overview.md
-  - Setup guides:
-      - Networking & DNS: setup/networking.md
-      - Reverse proxy & HTTPS: setup/reverse-proxy.md
-      - Media automation: setup/media-automation.md
-      - Monitoring & dashboard: setup/monitoring.md
-      - Security: setup/security.md
-      - Remote access: setup/remote-access.md
-      - Backups: setup/backups.md
-  - Troubleshooting log: troubleshooting.md
+  - Infrastructure: infrastructure.md
+  - Networking: networking.md
+  - Monitoring: monitoring.md
+  - Security: security.md
+  - Backup & Disaster Recovery: backup.md
+  - Automation: automation.md
+  - Operations: operations.md
+  - Lessons Learned: lessons-learned.md
+  - Roadmap: roadmap.md
+  - Tech Stack Reference: stack-overview.md
